@@ -1,0 +1,246 @@
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@700;900&family=Inter:wght@400;500;700;900&family=JetBrains+Mono:wght@400;700;900&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, monospace;
+  --font-display: "Space Grotesk", sans-serif;
+  
+  --color-brand-bg: #0C0C0E;
+  --color-brand-panel: #161618;
+  --color-brand-red: #DC2626;
+}
+
+/* Custom styling for Leaflet Maps to match dark cyber-ranger aesthetic */
+.leaflet-container {
+  background: #0C0C0E !important; /* brand-bg */
+}
+.leaflet-bar {
+  border: 1px solid rgba(255, 255, 255, 0.1) !important;
+  box-shadow: none !important;
+}
+.leaflet-bar a {
+  background-color: #161618 !important; /* brand-panel */
+  color: #f0f0f0 !important;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05) !important;
+  border-radius: 0px !important;
+}
+.leaflet-bar a:hover {
+  background-color: #242427 !important;
+}
+.leaflet-popup-content-wrapper {
+  background-color: #161618 !important;
+  color: #f0f0f0 !important;
+  border: 1px solid rgba(255, 255, 255, 0.1) !important;
+  border-radius: 0px !important;
+}
+.leaflet-popup-tip {
+  background-color: #161618 !important;
+  border: 1px solid rgba(255, 255, 255, 0.1) !important;
+}
+.leaflet-control-attribution {
+  background: rgba(12, 12, 14, 0.85) !important;
+  color: rgba(255, 255, 255, 0.4) !important;
+  font-family: var(--font-mono) !important;
+  font-size: 9px !important;
+  border-top: 1px solid rgba(255, 255, 255, 0.08) !important;
+  border-left: 1px solid rgba(255, 255, 255, 0.08) !important;
+}
+.leaflet-control-attribution a {
+  color: rgba(255, 255, 255, 0.6) !important;
+}
+
+/* Pulse effects for Map and Operator panel */
+@keyframes ranger-pulse {
+  0%, 100% { opacity: 0.15; transform: scale(1); }
+  50% { opacity: 0.35; transform: scale(1.08); }
+}
+.danger-radial-pulse {
+  position: absolute;
+  border-radius: 9999px;
+  background-color: rgba(220, 38, 38, 0.25);
+  animation: ranger-pulse 2s infinite ease-in-out;
+}
+.warning-radial-pulse {
+  position: absolute;
+  border-radius: 9999px;
+  background-color: rgba(245, 158, 11, 0.15);
+  animation: ranger-pulse 2.5s infinite ease-in-out;
+}
+
+/* =========================================================
+   PROMINENT SOS STATUS INDICATOR CSS ANIMATIONS FOR MAP MARKER
+   ========================================================= */
+
+@keyframes sos-beacon-heavy-pulse {
+  0% {
+    transform: scale(0.9);
+    box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.95), 0 0 20px rgba(220, 38, 38, 0.9), inset 0 0 10px rgba(255, 255, 255, 0.6);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(1.25);
+    box-shadow: 0 0 0 22px rgba(239, 68, 68, 0.35), 0 0 40px rgba(239, 68, 68, 1), inset 0 0 16px rgba(255, 255, 255, 0.9);
+    opacity: 0.95;
+  }
+  100% {
+    transform: scale(0.9);
+    box-shadow: 0 0 0 36px rgba(239, 68, 68, 0), 0 0 20px rgba(220, 38, 38, 0.9), inset 0 0 10px rgba(255, 255, 255, 0.6);
+    opacity: 1;
+  }
+}
+
+@keyframes sos-sonar-wave {
+  0% {
+    transform: scale(0.5);
+    opacity: 1;
+    border-width: 3px;
+  }
+  60% {
+    opacity: 0.85;
+  }
+  100% {
+    transform: scale(3.2);
+    opacity: 0;
+    border-width: 1px;
+  }
+}
+
+@keyframes sos-badge-distress-flash {
+  0%, 100% {
+    background-color: #ef4444;
+    color: #ffffff;
+    border-color: #fca5a5;
+    box-shadow: 0 0 18px rgba(239, 68, 68, 0.9), 0 0 4px #ffffff;
+    transform: scale(1.04);
+  }
+  50% {
+    background-color: #7f1d1d;
+    color: #fecaca;
+    border-color: #dc2626;
+    box-shadow: 0 0 6px rgba(185, 28, 28, 0.6);
+    transform: scale(0.98);
+  }
+}
+
+@keyframes sos-halo-glow {
+  0%, 100% {
+    filter: drop-shadow(0 0 8px #ef4444) drop-shadow(0 0 18px #dc2626) brightness(1.2);
+  }
+  50% {
+    filter: drop-shadow(0 0 22px #ff0000) drop-shadow(0 0 35px #ef4444) brightness(1.7);
+  }
+}
+
+.sos-status-beacon {
+  position: absolute;
+  width: 50px;
+  height: 50px;
+  border-radius: 9999px;
+  background: radial-gradient(circle, rgba(239, 68, 68, 0.5) 0%, rgba(220, 38, 38, 0.25) 55%, rgba(220, 38, 38, 0) 100%);
+  animation: sos-beacon-heavy-pulse 1.1s infinite cubic-bezier(0.4, 0, 0.6, 1);
+  pointer-events: none;
+  z-index: 10;
+}
+
+.sos-sonar-wave-primary {
+  position: absolute;
+  width: 44px;
+  height: 44px;
+  border-radius: 9999px;
+  border: 2px solid #ef4444;
+  animation: sos-sonar-wave 1.5s infinite cubic-bezier(0.15, 0.85, 0.35, 1);
+  pointer-events: none;
+  z-index: 9;
+}
+
+.sos-sonar-wave-secondary {
+  position: absolute;
+  width: 44px;
+  height: 44px;
+  border-radius: 9999px;
+  border: 2px solid #ff6b6b;
+  animation: sos-sonar-wave 1.5s infinite 0.55s cubic-bezier(0.15, 0.85, 0.35, 1);
+  pointer-events: none;
+  z-index: 8;
+}
+
+.sos-distress-marker-pin {
+  animation: sos-halo-glow 0.85s infinite alternate ease-in-out;
+}
+
+.sos-distress-badge-active {
+  animation: sos-badge-distress-flash 0.8s infinite ease-in-out;
+}
+
+/* =========================================================
+   LOW BATTERY (< 15%) HAPTIC-LIKE VIBRATION & VISUAL WARNING PULSE
+   ========================================================= */
+
+@keyframes haptic-buzz {
+  0% { transform: translate(0, 0) rotate(0deg); }
+  10% { transform: translate(-2.5px, 1.5px) rotate(-0.5deg); }
+  20% { transform: translate(2.5px, -1.5px) rotate(0.5deg); }
+  30% { transform: translate(-3px, -1px) rotate(-0.4deg); }
+  40% { transform: translate(2.5px, 1.5px) rotate(0.4deg); }
+  50% { transform: translate(-2px, 1px) rotate(-0.3deg); }
+  60% { transform: translate(2px, -1px) rotate(0.3deg); }
+  70% { transform: translate(-1.5px, 0.5px) rotate(-0.2deg); }
+  80% { transform: translate(1px, -0.5px) rotate(0.1deg); }
+  90% { transform: translate(-0.5px, 0.5px) rotate(0deg); }
+  100% { transform: translate(0, 0) rotate(0deg); }
+}
+
+.haptic-vibrate-buzz {
+  animation: haptic-buzz 0.28s cubic-bezier(0.36, 0.07, 0.19, 0.97) infinite;
+}
+
+@keyframes battery-critical-pulse {
+  0%, 100% {
+    box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.85), 0 0 25px rgba(220, 38, 38, 0.6), inset 0 0 15px rgba(239, 68, 68, 0.35);
+    border-color: #ef4444;
+  }
+  50% {
+    box-shadow: 0 0 0 10px rgba(239, 68, 68, 0.3), 0 0 50px rgba(239, 68, 68, 0.95), inset 0 0 35px rgba(239, 68, 68, 0.65);
+    border-color: #f87171;
+  }
+}
+
+.battery-warning-pulse-chassis {
+  animation: battery-critical-pulse 1.3s ease-in-out infinite;
+}
+
+@keyframes warning-vignette-anim {
+  0%, 100% { opacity: 0.3; }
+  50% { opacity: 0.85; }
+}
+
+.battery-warning-vignette {
+  background: radial-gradient(circle at 50% 50%, transparent 55%, rgba(220, 38, 38, 0.45) 90%, rgba(239, 68, 68, 0.75) 100%);
+  animation: warning-vignette-anim 1.2s ease-in-out infinite;
+  pointer-events: none;
+}
+
+@keyframes haptic-wave-left-pulse {
+  0% { transform: scale(0.6) translateX(0); opacity: 0; }
+  50% { transform: scale(1.1) translateX(-8px); opacity: 0.95; }
+  100% { transform: scale(1.4) translateX(-18px); opacity: 0; }
+}
+
+@keyframes haptic-wave-right-pulse {
+  0% { transform: scale(0.6) translateX(0); opacity: 0; }
+  50% { transform: scale(1.1) translateX(8px); opacity: 0.95; }
+  100% { transform: scale(1.4) translateX(18px); opacity: 0; }
+}
+
+.haptic-wave-left {
+  animation: haptic-wave-left-pulse 0.75s cubic-bezier(0.2, 0.8, 0.2, 1) infinite;
+}
+
+.haptic-wave-right {
+  animation: haptic-wave-right-pulse 0.75s cubic-bezier(0.2, 0.8, 0.2, 1) infinite;
+}
+
+
+
+

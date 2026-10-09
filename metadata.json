@@ -1,0 +1,10 @@
+{
+  "name": "Intelligent Tourist Tracking & Safety System",
+  "description": "A real-time tracking dashboard for operators to monitor tourist safety, coupled with a tourist companion application with geofence hazard warning, instant SOS alerts, and a Gemini-powered safety assistant.",
+  "requestFramePermissions": [
+    "geolocation"
+  ],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}

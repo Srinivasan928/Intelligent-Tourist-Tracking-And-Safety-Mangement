@@ -1,0 +1,53 @@
+{
+  "entities": {
+    "User": {
+      "collectionName": "users",
+      "fields": {
+        "id": { "type": "string", "description": "Unique user ID matching auth.uid" },
+        "email": { "type": "string", "description": "User email address" },
+        "displayName": { "type": "string", "description": "User display name" },
+        "photoURL": { "type": "string", "description": "User profile avatar photo URL" },
+        "role": { "type": "string", "description": "User role: ranger, dispatcher, admin, tourist" },
+        "createdAt": { "type": "string", "description": "Account creation timestamp" },
+        "lastLogin": { "type": "string", "description": "Last sign-in timestamp" }
+      }
+    },
+    "Tourist": {
+      "collectionName": "tourists",
+      "fields": {
+        "id": { "type": "string", "description": "Unique tourist tracker ID" },
+        "name": { "type": "string", "description": "Full name of the tourist" },
+        "phone": { "type": "string", "description": "Phone number" },
+        "emergencyContact": { "type": "string", "description": "Emergency contact name and phone" },
+        "status": { "type": "string", "description": "Safety status: safe, warning, or danger" },
+        "battery": { "type": "number", "description": "Device battery percentage (0-100)" },
+        "heartRate": { "type": "number", "description": "Heart rate in beats per minute" },
+        "temperature": { "type": "number", "description": "Body temperature in Celsius" },
+        "altitude": { "type": "number", "description": "Elevation in meters" },
+        "coordinates": { "type": "array", "description": "Current latitude and longitude [lat, lng]" },
+        "lastPing": { "type": "string", "description": "Timestamp of last telemetry packet" },
+        "street": { "type": "string", "description": "Current landmark or trail section" },
+        "locality": { "type": "string", "description": "Forest range or locality" },
+        "notes": { "type": "string", "description": "Operational and health notes" },
+        "bloodGroup": { "type": "string", "description": "Tourist blood group" },
+        "medicalNotes": { "type": "string", "description": "Allergies or known medical conditions" },
+        "updatedAt": { "type": "string", "description": "Last update timestamp" }
+      }
+    },
+    "Incident": {
+      "collectionName": "incidents",
+      "fields": {
+        "id": { "type": "string", "description": "Unique incident ID" },
+        "touristId": { "type": "string", "description": "ID of tourist involved" },
+        "touristName": { "type": "string", "description": "Name of tourist" },
+        "type": { "type": "string", "description": "Type of alert" },
+        "severity": { "type": "string", "description": "Severity level" },
+        "status": { "type": "string", "description": "Status: active, acknowledged, resolved" },
+        "coordinates": { "type": "array", "description": "Coordinates of incident" },
+        "timestamp": { "type": "string", "description": "Incident timestamp" },
+        "details": { "type": "string", "description": "Description of incident" },
+        "vitals": { "type": "object", "description": "Snapshot of vitals at time of incident" }
+      }
+    }
+  }
+}
